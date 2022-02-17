@@ -205,37 +205,76 @@ console.log({} === {}); */
 
 // --------------------------------------------------------
 
-window.addEventListener("load", function(){
+/* window.addEventListener("load", function(){
     console.log("Az oldal betoldodott");
-})
+}) */
 
 function loadEvent() {
-    console.log("Az oldal ismet betoltodott");
+    
     let rootElement = document.getElementById("root")
 
-    let card= function(movieRecieved){
-        return  `
-        <div class="card">
-        <h2> ${movieRecieved.title} </h2>
-        <time> ${movieRecieved.year} </time>
-        <div class="rate"> ${movieRecieved.rate} </div>
+    let card = function(title, year, rate){
         
-        </div>
-        `
+            return  `
+            <div class="card">
+                <h2> ${title} </h2>
+                <time> ${year} </time>
+                <div class="rate"> ${rate} </div>
+            
+            </div>
+            `
+        
     };
 
+    let renderAllCardElements = function(incomingMoviesArray) {
+        let renderedCardList = "";
 
-    let actuallyFavoriteMovie = {
-        "title": "movieadsakdaséld",
-        "year": 2002,
-        "rate": 10
+        //for ciklus ami végig megy a cardsarrayen, amit paraméterként kaptunk meg
+        for (const incomingMovie of incomingMoviesArray) {
+            renderedCardList += `
+            <div class="card">
+                <h2> ${incomingMovie.title} </h2>
+                <time> ${incomingMovie.year} </time>
+                <div class="rate"> ${incomingMovie.rate} </div>
+            
+            </div>
+            `
+        }
+        //forciklus minden lépcsőjénél hozzáadja a renderedCardList-hez az adott elemet a megfelelő div cardban
+        console.log(renderedCardList);
+        
+        // return-li az elkészült elemekkel feltöltött cardlist-et, a forcikluson kívül
+        return renderedCardList;
+        
     }
-    rootElement.insertAdjacentHTML("beforeend",card(actuallyFavoriteMovie) );
-    rootElement.insertAdjacentHTML("beforeend",card(movies[0]) );
+
+    // movies.sort(function(a, b){return a.year - b.year});  sorba rendezese a filmeknek
+    let newGoodMovies = [];
 
     for (const movieSend of movies) {
-        rootElement.insertAdjacentHTML("beforeend",card(movieSend) );
-    }
+      /*   let newerThan2000 = false;
+
+        if (movieSend.year > 2000) {
+            newerThan2000 = true;
+        }
+
+        if (newerThan2000){
+            rootElement.insertAdjacentHTML("beforeend",card(movieSend.title, movieSend.year, movieSend.rate) );
+        } */
+
+      //  let floorRate = Math.floor(movieSend.rate);
+
+        if (movieSend.year > 2000 && movieSend.rate >= 8) {
+            newGoodMovies.push(movieSend);
+           // rootElement.insertAdjacentHTML("beforeend",card(movieSend.title, movieSend.year, floorRate) );
+        }
+    }  
+    newGoodMovies.sort(function(a, b){return a.year - b.year});
+    console.log(newGoodMovies);
+
+    rootElement.insertAdjacentHTML("beforeend", renderAllCardElements(newGoodMovies))
+
+   
 }
 window.addEventListener("load", loadEvent);
 
