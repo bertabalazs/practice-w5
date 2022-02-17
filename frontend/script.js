@@ -125,7 +125,7 @@ console.log(multiplyByTwo(1)); */
 /* let g = {
     myMethod: function () {
         console.log("Hello");
-    }
+    }  
 }
 g.myMethod()     *///a g-n belüli myMethod futtatása  
 
@@ -140,7 +140,7 @@ let window = {
 }
 
 window.addEventListener("load", loadEvent) */
-
+/*
 let h = {
     anotherMethod: function(text){
         return `You sent the following argument to this method: ${text}`
@@ -150,4 +150,92 @@ let h = {
 let i = h.anotherMethod("argument")    // itt  a zárójelek között küldjük be hogy argument, stringként, a lettel elmentettem
 console.log(i);
 console.log(h.anotherMethod("another argument"));   // közvetlen megkérése az előző sornak
+*/
+//--------------------
+
+/*
+let myString = "mikkamakka";
+
+let mySecondString = myString;  
+
+let myThirdString = "mikkamakka";
+
+
+
+console.log(myString);
+console.log(mySecondString);
+console.log(myString === mySecondString);
+console.log(myString === myThirdString);   */
+
+//  -------------------
+
+/* let myObject = {
+    myString: "mikkamakka"
+}
+
+let mySecondObject = myObject;
+
+let myThirdObject = {
+    myString: "mikkamakka"
+} */
+
+//object copy----------------------------------------------
+/* mySecondObject.myString = 'domdodom';
+
+let myFourthObject = {...myObject};
+
+myFourthObject.myString = "Vacskamati"
+
+
+console.log(myObject.myString);
+console.log(myFourthObject.myString); */
+
+/* console.log(myObject === mySecondObject);
+console.log(myObject === myThirdObject);
+ */
+
+
+
+
+
+// -----------------------
+
+/* console.log('' === '');
+console.log({} === {}); */
+
+// --------------------------------------------------------
+
+window.addEventListener("load", function(){
+    console.log("Az oldal betoldodott");
+})
+
+function loadEvent() {
+    console.log("Az oldal ismet betoltodott");
+    let rootElement = document.getElementById("root")
+
+    let card= function(movieRecieved){
+        return  `
+        <div class="card">
+        <h2> ${movieRecieved.title} </h2>
+        <time> ${movieRecieved.year} </time>
+        <div class="rate"> ${movieRecieved.rate} </div>
+        
+        </div>
+        `
+    };
+
+
+    let actuallyFavoriteMovie = {
+        "title": "movieadsakdaséld",
+        "year": 2002,
+        "rate": 10
+    }
+    rootElement.insertAdjacentHTML("beforeend",card(actuallyFavoriteMovie) );
+    rootElement.insertAdjacentHTML("beforeend",card(movies[0]) );
+
+    for (const movieSend of movies) {
+        rootElement.insertAdjacentHTML("beforeend",card(movieSend) );
+    }
+}
+window.addEventListener("load", loadEvent);
 
